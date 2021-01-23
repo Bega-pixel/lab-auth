@@ -59,3 +59,4 @@ module.exports.list = (req, res, next) => {
     .then(users => res.render('users/list', { users }))
     .catch(next)
 }
+

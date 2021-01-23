@@ -15,10 +15,11 @@ router.post('/login', usersController.doLogin);
 
 
 // Iteration 2: logout route
-router.post('/logout', usersController.logout)
+router.post('/logout', secure.isAuthenticated,usersController.logout)
 // Iteration 3: authenticate users path
-router.get('/users', usersController.list);
+router.get('/users', secure.isAuthenticated,usersController.list);
 
-router.get('/', (req, res) => res.redirect('/users'));
+router.get('/', secure.isAuthenticated,usersController.list)
+
 
 module.exports = router;
