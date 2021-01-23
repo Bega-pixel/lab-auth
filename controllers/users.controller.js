@@ -24,11 +24,34 @@ module.exports.login = (req, res, next) => {
 
 module.exports.doLogin = (req, res, next) => {
   // Iteration 2: login user
+
+    User.findOne({ email: req.body.email  })
+      .then((user) => {
+        if (user) {
+          user.checkPassword(req.body.password).then((match) => {
+            if (match) {
+              req.session.currentUserId = user.id;           
+               res.redirect('/');
+            } else {
+              res.render('users/login', { user: req.body, errors: { password: 'invalid user' } });
+            }
+          });
+        } else {
+          res.render('users/login', { user: req.body, errors: { email: 'user not found' } });
+        }
+      })
+      .catch(next);
+  
+
   // Iteration 4: clean this method and login the user with passport
 };
 
 module.exports.logout = (req, res, next) => {
   // Iteration 2: logout
+
+  req.session.destroy();
+  res.redirect('/login');
+
 };
 
 module.exports.list = (req, res, next) => {

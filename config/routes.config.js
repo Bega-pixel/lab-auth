@@ -13,8 +13,9 @@ router.post('/register', usersController.doRegister);
 router.get('/login', usersController.login);
 router.post('/login', usersController.doLogin);
 
-// Iteration 2: logout route
 
+// Iteration 2: logout route
+router.post('/logout', usersController.logout)
 // Iteration 3: authenticate users path
 router.get('/users', usersController.list);
 
